@@ -1,0 +1,32 @@
+﻿@page "/shelters"
+
+<PageTitle>Animal Shelters</PageTitle>
+
+<h1>Participating Animal Shelters</h1>
+
+<ul>
+    @foreach (var shelter in shelters)
+    {
+        <li>
+            <h3>@shelter.Name</h3>
+            <p>@shelter.Mission</p>
+            <p>Contact: @shelter.ContactDetails</p>
+        </li>
+    }
+</ul>
+
+@code {
+    private List<Shelter> shelters = new List<Shelter>
+    {
+        new Shelter { Name = "Happy Tails Shelter", Mission = "Providing loving homes for all animals.", ContactDetails = "1234 Elm Street, (555) 123-4567" },
+        new Shelter { Name = "Paws and Claws", Mission = "Rescuing and rehabilitating stray animals.", ContactDetails = "5678 Oak Avenue, (555) 987-6543" }
+        // Add more sample shelters as needed
+    };
+
+    public class Shelter
+    {
+        public required string Name { get; set; }
+        public required string Mission { get; set; }
+        public required string ContactDetails { get; set; }
+    }
+}

@@ -1,0 +1,71 @@
+﻿@page "/dogs"
+@using System.Collections.Generic
+@using System.Linq
+
+<PageTitle>Dog Listings</PageTitle>
+
+<h1>Available Dogs for Adoption</h1>
+
+<div>
+    <label for="breed">Breed:</label>
+    <input id="breed" @bind="searchBreed" />
+</div>
+
+<div>
+    <label for="age">Age:</label>
+    <select id="age" @bind="searchAge">
+        <option value="">All</option>
+        <option value="Puppy">Puppy</option>
+        <option value="Adult">Adult</option>
+        <option value="Senior">Senior</option>
+    </select>
+</div>
+
+<button @onclick="SearchDogs">Search</button>
+
+<ul>
+    @foreach (var dog in filteredDogs)
+    {
+        <li>
+            <img src="@dog.PhotoUrl" alt="Photo of @dog.Name" />
+            <h3>@dog.Name</h3>
+            <p>@dog.Description</p>
+            <p>Age: @dog.Age</p>
+            <p>Breed: @dog.Breed</p>
+        </li>
+    }
+</ul>
+
+@code {
+    private string searchBreed = "";
+    private string searchAge = "";
+    private List<Dog> dogs = new List<Dog>
+    {
+        new Dog { Name = "Buddy", Description = "Friendly and playful", Age = "Puppy", Breed = "Labrador", PhotoUrl = "url1" },
+        new Dog { Name = "Max", Description = "Loyal and protective", Age = "Adult", Breed = "German Shepherd", PhotoUrl = "url2" },
+        // Add more dog entries here
+    };
+    private List<Dog> filteredDogs = new List<Dog>();
+
+    protected override void OnInitialized()
+    {
+        filteredDogs = dogs;
+    }
+
+    private void SearchDogs()
+    {
+        filteredDogs = dogs.Where(dog =>
+            (string.IsNullOrEmpty(searchBreed) || dog.Breed.Contains(searchBreed, StringComparison.OrdinalIgnoreCase)) &&
+            (string.IsNullOrEmpty(searchAge) || dog.Age.Equals(searchAge, StringComparison.OrdinalIgnoreCase))
+        ).ToList();
+    }
+
+    public class Dog
+    {
+        public required string Name { get; set; }
+        public required string Description { get; set; }
+        public required string Age { get; set; }
+        public required string Breed { get; set; }
+        public required string PhotoUrl { get; set; }
+    }
+}

@@ -1,0 +1,43 @@
+﻿@page "/"
+@using System.Collections.Generic
+
+<PageTitle>Animal Adoption</PageTitle>
+
+<h1>Welcome to Animal Adoption</h1>
+
+<p>
+    Animal adoption is a compassionate act of providing care for lost or abandoned animals, such as cats and dogs, that are not able to survive on their own. These animals are typically collected by animal control authorities and taken to animal shelters where they can receive the care they need.
+</p>
+
+<h2>Find Your New Best Friend</h2>
+
+<div>
+    <label for="animalType">Animal Type:</label>
+    <select id="animalType" @bind="selectedAnimalType">
+        <option value="">All</option>
+        <option value="Dog">Dog</option>
+        <option value="Cat">Cat</option>
+    </select>
+</div>
+
+<div>
+    <label for="ageRange">Age Range:</label>
+    <select id="ageRange" @bind="selectedAgeRange">
+        <option value="">All</option>
+        <option value="Puppy/Kitten">Puppy/Kitten</option>
+        <option value="Adult">Adult</option>
+        <option value="Senior">Senior</option>
+    </select>
+</div>
+
+<button @onclick="SearchAnimals">Search</button>
+
+@code {
+    private string selectedAnimalType = "";
+    private string selectedAgeRange = "";
+
+    private void SearchAnimals()
+    {
+        // Implement search logic here
+    }
+}
